@@ -25,17 +25,27 @@ socket.on("matchUpdate", (data) => {
 });
 
 function updateScoreboard(matches) {
-  const ongoingContainer = document.getElementById("ongoing-matches");
-  const finishedContainer = document.getElementById("finished-matches");
+  const ongoingMatchesContainer = document.getElementById("ongoing-matches");
+  const finishedMatchesContainer = document.getElementById("finished-matches");
+  const ongoingMatchesCounter = document.getElementById(
+    "ongoing-matches-counter"
+  );
+  const finishedMatchesCounter = document.getElementById(
+    "finished-matches-counter"
+  );
 
-  ongoingContainer.innerHTML = "";
-  finishedContainer.innerHTML = "";
+  ongoingMatchesContainer.innerHTML = "";
+  finishedMatchesContainer.innerHTML = "";
 
   const ongoingMatches = matches.filter((match) => match.status === "ongoing");
+  const ongoingMatchesLength = ongoingMatches.length;
+  ongoingMatchesCounter.innerHTML = `(${ongoingMatchesLength})`;
 
   const finishedMatches = matches
     .filter((match) => match.status === "finished")
     .sort((a, b) => b.homeScore + b.awayScore - (a.homeScore + a.awayScore));
+  const finishedMatchesLength = finishedMatches.length;
+  finishedMatchesCounter.innerHTML = `(${finishedMatchesLength})`;
 
   ongoingMatches.forEach((match) => {
     let matchDiv = document.getElementById(`match-${match.id}`);
@@ -57,7 +67,7 @@ function updateScoreboard(matches) {
       `;
     }
 
-    ongoingContainer.appendChild(matchDiv);
+    ongoingMatchesContainer.appendChild(matchDiv);
   });
 
   finishedMatches.forEach((match) => {
@@ -71,7 +81,7 @@ function updateScoreboard(matches) {
         <span>Finished</span>
       `;
     }
-    finishedContainer.appendChild(matchDiv);
+    finishedMatchesContainer.appendChild(matchDiv);
   });
 }
 
