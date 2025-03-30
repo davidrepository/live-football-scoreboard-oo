@@ -1,0 +1,71 @@
+:root {
+  --radius-pill: 999px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  color: #000;
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.4rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+}
+
+div:empty {
+  display: none;
+}
+
+.button {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  border: 1px solid #000;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  padding: 0.6rem 1.8rem;
+  height: 3.6rem;
+}
+
+.button.button--primary {
+  border: 1px solid #000;
+  color: #000;
+}
+
+.button.button--danger {
+  color: red;
+  border: 1px solid red;
+}
+
+.input {
+  border: 1px solid #ccc;
+  border-radius: var(--radius-pill);
+  padding: 0.6rem 1.8rem;
+  outline: none;
+  height: 3.6rem;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: #000;
+}

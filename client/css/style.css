@@ -1,0 +1,41 @@
+.container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.8rem;
+}
+
+@media (min-width: 750px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  padding: 1.8rem;
+  /* background-color: lightblue; */
+  border: 1px solid #000;
+  border-radius: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.card span {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.section {
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+}
+
+.section__inner {
+  max-width: 120rem;
+  margin: 0 auto;
+}

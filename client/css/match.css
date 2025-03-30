@@ -1,0 +1,37 @@
+.match {
+  border-radius: 0.9rem;
+  padding: 1.2rem;
+  background-color: rgba(0, 0, 0, 0.24);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.match__input {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.match__cta {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.match-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  padding: 4.5rem 0;
+}
+
+.match-form .match-form__inputs {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.matches {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
