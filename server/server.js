@@ -3,7 +3,6 @@ const { Server } = require("socket.io");
 const { GameController } = require("./controllers");
 
 const PORT = 3000;
-
 const httpServer = createServer();
 
 const io = new Server(httpServer, {

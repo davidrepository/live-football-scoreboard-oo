@@ -8,12 +8,13 @@ socket.on("connected", (message) => {
   console.log(message);
 });
 
-document.getElementById("start-match").addEventListener("click", () => {
+document.getElementById("match-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+
   const homeTeam = document.getElementById("home-team").value.trim();
   const awayTeam = document.getElementById("away-team").value.trim();
 
   if (homeTeam && awayTeam) {
-    console.log("emit start match");
     socket.emit("startMatch", { homeTeam, awayTeam });
   } else {
     alert("Please enter valid team names.");
@@ -38,51 +39,59 @@ function updateScoreboard(matches) {
   finishedMatchesContainer.innerHTML = "";
 
   const ongoingMatches = matches.filter((match) => match.status === "ongoing");
-  const ongoingMatchesLength = ongoingMatches.length;
-  ongoingMatchesCounter.innerHTML = `(${ongoingMatchesLength})`;
-
   const finishedMatches = matches
     .filter((match) => match.status === "finished")
     .sort((a, b) => b.homeScore + b.awayScore - (a.homeScore + a.awayScore));
-  const finishedMatchesLength = finishedMatches.length;
-  finishedMatchesCounter.innerHTML = `(${finishedMatchesLength})`;
+
+  ongoingMatchesCounter.innerHTML = `(${ongoingMatches.length})`;
+  finishedMatchesCounter.innerHTML = `(${finishedMatches.length})`;
 
   ongoingMatches.forEach((match) => {
-    let matchDiv = document.getElementById(`match-${match.id}`);
-
-    if (!matchDiv) {
-      matchDiv = document.createElement("div");
-      matchDiv.className = "match";
-      matchDiv.id = `match-${match.id}`;
-      matchDiv.innerHTML = `
-        <h3>${match.homeTeam} ${match.homeScore} - ${match.awayScore} ${match.awayTeam}</h3>
-        <div class="match__input">
-          <input type="number" id="home-input-${match.id}" value="${match.homeScore}" min="0" class="input">
-          <input type="number" id="away-input-${match.id}" value="${match.awayScore}" min="0" class="input">
-        </div>
-        <div class="match__cta">
-          <button onclick="updateScore('${match.id}')" class="button button--primary">Update Score</button>
-          <button onclick="finishMatch('${match.id}')" class="button button--danger">Finish Match</button>
-        </div>
-      `;
-    }
-
-    ongoingMatchesContainer.appendChild(matchDiv);
+    updateMatchElement(match, ongoingMatchesContainer, true);
   });
 
   finishedMatches.forEach((match) => {
-    let matchDiv = document.getElementById(`match-${match.id}`);
-    if (!matchDiv) {
-      matchDiv = document.createElement("div");
-      matchDiv.className = "match";
-      matchDiv.id = `match-${match.id}`;
-      matchDiv.innerHTML = `
-        <h3>${match.homeTeam} ${match.homeScore} - ${match.awayScore} ${match.awayTeam}</h3>
-        <span>Finished</span>
-      `;
-    }
-    finishedMatchesContainer.appendChild(matchDiv);
+    updateMatchElement(match, finishedMatchesContainer, false);
   });
+}
+
+function updateMatchElement(match, container, isOngoing) {
+  let matchDiv = document.getElementById(`match-${match.id}`);
+
+  if (!matchDiv) {
+    matchDiv = document.createElement("div");
+    matchDiv.className = "match";
+    matchDiv.id = `match-${match.id}`;
+
+    const matchHTML = isOngoing
+      ? `
+          <h3>${match.homeTeam} ${match.homeScore} - ${match.awayScore} ${match.awayTeam}</h3>
+          <div class="match__input">
+            <input type="number" id="home-input-${match.id}" value="${match.homeScore}" min="0" class="input">
+            <input type="number" id="away-input-${match.id}" value="${match.awayScore}" min="0" class="input">
+          </div>
+          <div class="match__cta">
+            <button class="button button--primary update-score-btn" data-match-id="${match.id}">Update Score</button>
+            <button class="button button--danger finish-match-btn" data-match-id="${match.id}">Finish Match</button>
+          </div>
+        `
+      : `
+          <h3>${match.homeTeam} ${match.homeScore} - ${match.awayScore} ${match.awayTeam}</h3>
+        `;
+
+    matchDiv.innerHTML = matchHTML;
+    container.appendChild(matchDiv);
+  }
+
+  const updateScoreButton = matchDiv.querySelector(".update-score-btn");
+  const finishMatchButton = matchDiv.querySelector(".finish-match-btn");
+
+  if (updateScoreButton) {
+    updateScoreButton.addEventListener("click", () => updateScore(match.id));
+  }
+  if (finishMatchButton) {
+    finishMatchButton.addEventListener("click", () => finishMatch(match.id));
+  }
 }
 
 function updateScore(matchId) {

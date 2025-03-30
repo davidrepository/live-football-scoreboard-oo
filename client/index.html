@@ -4,41 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Live Football Scoreboard</title>
-    <link rel="stylesheet" href="./css/global.css" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/match.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Meddon&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/match.css" />
   </head>
   <body>
     <div class="section">
       <div class="section__inner">
-        <div class="match-form">
+        <div class="match-form-container">
           <h1>Live Football Scoreboard</h1>
-          <div class="match-form__inputs">
-            <input
-              type="text"
-              id="home-team"
-              placeholder="Home Team Name"
-              class="input"
-            />
-            <input
-              type="text"
-              id="away-team"
-              placeholder="Away Team Name"
-              class="input"
-            />
-          </div>
+          <form id="match-form">
+            <div class="match-form-container__inputs">
+              <input
+                type="text"
+                id="home-team"
+                placeholder="Home Team Name"
+                class="input"
+              />
+              <input
+                type="text"
+                id="away-team"
+                placeholder="Away Team Name"
+                class="input"
+              />
+            </div>
 
-          <div class="match-form__cta">
-            <button id="start-match" class="button button--primary">
-              Start Match
-            </button>
-          </div>
+            <div class="match-form-container__cta">
+              <button
+                type="submit"
+                id="start-match"
+                class="button button--primary"
+              >
+                Start Match
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
