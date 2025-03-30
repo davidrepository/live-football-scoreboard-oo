@@ -51,7 +51,6 @@ class MatchManager {
 
   clearMatches() {
     this.matches.clear();
-    console.log("Matches reset");
   }
 }
 

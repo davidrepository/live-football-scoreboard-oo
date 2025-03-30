@@ -31,9 +31,7 @@ function updateScoreboard(matches) {
   ongoingContainer.innerHTML = "";
   finishedContainer.innerHTML = "";
 
-  const ongoingMatches = matches
-    .filter((match) => match.status === "ongoing")
-    .sort((a, b) => b.homeScore + b.awayScore - (a.homeScore + a.awayScore));
+  const ongoingMatches = matches.filter((match) => match.status === "ongoing");
 
   const finishedMatches = matches
     .filter((match) => match.status === "finished")
@@ -47,8 +45,7 @@ function updateScoreboard(matches) {
       matchDiv.className = "match";
       matchDiv.id = `match-${match.id}`;
       matchDiv.innerHTML = `
-        <h3>${match.homeTeam} <span id="home-score-${match.id}">${match.homeScore}</span> - 
-        <span id="away-score-${match.id}">${match.awayScore}</span> ${match.awayTeam}</h3>
+        <h3>${match.homeTeam} ${match.homeScore} - ${match.awayScore} ${match.awayTeam}</h3>
         <div class="match__input">
           <input type="number" id="home-input-${match.id}" value="${match.homeScore}" min="0" class="input">
           <input type="number" id="away-input-${match.id}" value="${match.awayScore}" min="0" class="input">
