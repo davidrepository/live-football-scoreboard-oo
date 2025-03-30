@@ -20,7 +20,7 @@ document.getElementById("start-match").addEventListener("click", () => {
   }
 });
 
-socket.on("matchUpdate", (data) => {
+socket.on("matchesUpdate", (data) => {
   updateScoreboard(data.matches);
 });
 
@@ -100,7 +100,6 @@ function updateScore(matchId) {
   }
 }
 
-// MATCH FINISH
 function finishMatch(matchId) {
   socket.emit("finishMatch", { matchId });
 }

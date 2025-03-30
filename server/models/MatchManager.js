@@ -18,7 +18,7 @@ class MatchManager {
   }
 
   broadcastMatchUpdate() {
-    this.io.emit("matchUpdate", {
+    this.io.emit("matchesUpdate", {
       matches: this.getAllMatchesData(),
     });
   }

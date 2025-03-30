@@ -18,7 +18,7 @@ class GameController {
 
       socket.on("resetMatches", () => {
         this.matchManager.resetMatches();
-        this.io.emit("matchUpdate", { matches: [] });
+        this.io.emit("matchesUpdate", { matches: [] });
       });
     });
   }
@@ -26,7 +26,7 @@ class GameController {
   startMatch(data) {
     this.matchManager.createMatch(data.homeTeam, data.awayTeam);
 
-    this.io.emit("matchUpdate", {
+    this.io.emit("matchesUpdate", {
       matches: this.matchManager.getAllMatchesData(),
     });
   }
@@ -38,7 +38,7 @@ class GameController {
       data.awayScore
     );
 
-    this.io.emit("matchUpdate", {
+    this.io.emit("matchesUpdate", {
       matches: this.matchManager.getAllMatchesData(),
     });
   }
@@ -46,7 +46,7 @@ class GameController {
   finishMatch(data) {
     this.matchManager.finishMatch(data.matchId);
 
-    this.io.emit("matchUpdate", {
+    this.io.emit("matchesUpdate", {
       matches: this.matchManager.getAllMatchesData(),
     });
   }
